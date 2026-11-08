@@ -1,7 +1,7 @@
 import pygame
 import sys
 from stable_baselines3 import PPO
-from snake import SnakeLogic
+from games.snake.logic import SnakeLogic  # <-- MODIFIÉ ICI
 
 # Configuration de l'affichage
 TAILLE_CASE = 40
@@ -21,22 +21,18 @@ JAUNE = (255, 255, 0)
 def dessiner(ecran, game, police, score_max):
     ecran.fill(NOIR)
     
-    # Dessiner la grille
     for x in range(0, LARGEUR, TAILLE_CASE):
         pygame.draw.line(ecran, GRIS, (x, 0), (x, HAUTEUR))
     for y in range(0, HAUTEUR, TAILLE_CASE):
         pygame.draw.line(ecran, GRIS, (0, y), (LARGEUR, y))
 
-    # Dessiner la pomme
     px, py = game.food
     pygame.draw.rect(ecran, ROUGE, (px * TAILLE_CASE, py * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE))
 
-    # Dessiner le serpent
     for i, (sx, sy) in enumerate(game.snake):
         couleur = VERT if i == 0 else VERT_FONCE
         pygame.draw.rect(ecran, couleur, (sx * TAILLE_CASE, sy * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE))
 
-    # Afficher le score
     texte_score = police.render(f"Score : {game.score}  |  Record : {score_max}", True, BLANC)
     ecran.blit(texte_score, (10, 10))
     
@@ -52,10 +48,9 @@ def main():
     police = pygame.font.SysFont("Arial", 24)
     horloge = pygame.time.Clock()
     
-    # Charger le jeu et le modèle
     game = SnakeLogic(TAILLE_GRILLE)
     
-    
+    # Le chemin vers le modèle (qui est à la racine du projet)
     modele_path = "Slytherin_v1" 
     print(f"Chargement du modèle : {modele_path}")
     model = PPO.load(modele_path)
@@ -69,15 +64,13 @@ def main():
             if event.type == pygame.QUIT:
                 en_cours = False
 
-        
         action, _ = model.predict(obs, deterministic=True)
         game.step(action)
         obs = game.get_observation()
         
         dessiner(ecran, game, police, score_max)
-        horloge.tick(15) # Vitesse de l'animation (15 images par seconde)
+        horloge.tick(15)
 
-        # Si l'IA meurt, on attend un peu et on relance
         if game.done:
             if game.score > score_max:
                 score_max = game.score

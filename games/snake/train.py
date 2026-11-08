@@ -1,10 +1,11 @@
-from snake import SnakeLogic
-from agent import GenericEnv
-from config import CONFIG_EDGE
+from engine.agent import GenericEnv             # <-- Modifié
+from games.snake.logic import SnakeLogic        # <-- Modifié
+from config import CONFIG_EDGE                  
 from stable_baselines3 import PPO
 
+
 if __name__ == "__main__":
-    print("🚀 Démarrage de l'entraînement v4.0...")
+    print("Démarrage de l'entraînement")
     
     game = SnakeLogic(10)
     env = GenericEnv(game)
