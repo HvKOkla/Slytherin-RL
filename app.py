@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import time
 from stable_baselines3 import PPO
-import torch # Pour vérifier si CUDA est dispo
+import torch 
 
 from games.snake.logic import SnakeLogic
 
-# --- PAGE CONFIGURATION ---
+
 st.set_page_config(
     page_title="Slytherin-RL | Research Dashboard",
     page_icon="🐍",
@@ -19,23 +19,21 @@ st.set_page_config(
 st.title("🐍 Slytherin-RL | Edge AI Research Dashboard")
 st.markdown("A modular Reinforcement Learning framework for Edge AI. Evaluate performance, behavior, and inference speed.")
 
-# --- SIDEBAR ---
-st.sidebar.header("⚙️ Evaluation Parameters")
+
+st.sidebar.header("Evaluation Parameters")
 model_name = st.sidebar.text_input("Model Name (without .zip)", "Slytherin_v1")
 n_episodes = st.sidebar.slider("Number of Episodes (Score)", 10, 100, 20)
 n_bench_steps = st.sidebar.slider("Number of Inference Steps (Speed)", 100, 5000, 1000)
 
-# --- TABS ---
+
 tab1, tab2, tab3, tab4 = st.tabs([
-    "📈 Performance", 
-    "⚡ Edge Inference Speed", 
-    "🧠 Architecture", 
-    "ℹ️ Specs"
+    "Performance", 
+    "Edge Inference Speed", 
+    "Architecture", 
+    "Specs"
 ])
 
-# ==========================================
-# TAB 1: PERFORMANCE
-# ==========================================
+
 with tab1:
     st.header("Performance Evaluation")
     if st.button("🚀 Evaluate Score", use_container_width=True):
@@ -71,12 +69,9 @@ with tab1:
             
         except Exception as e:
             st.error(f"Error: {e}")
-
-# ==========================================
-# TAB 2: EDGE INFERENCE SPEED (NOUVEAU)
-# ==========================================
+            
 with tab2:
-    st.header("⚡ Edge AI Inference Speed (Latency)")
+    st.header("Edge AI Inference Speed (Latency)")
     st.markdown("Measure how fast the agent can make a decision. Crucial for robotics and microcontrollers.")
     
     if st.button("⏱️ Measure Inference Speed", use_container_width=True):
@@ -85,12 +80,12 @@ with tab2:
             game = SnakeLogic(10)
             game.reset()
             
-            # Warmup (Pour charger le modèle en mémoire, évite les faux résultats au début)
+           
             dummy_obs = game.get_observation()
             for _ in range(100):
                 model.predict(dummy_obs, deterministic=True)
                 
-            # Le vrai test
+            
             obs = game.get_observation()
             times = []
             
@@ -119,13 +114,13 @@ with tab2:
             col4.metric("Device", "CUDA" if torch.cuda.is_available() else "CPU")
             
             st.markdown("---")
-            st.markdown("### 🎯 Edge AI Context")
+            st.markdown("### Edge AI Context")
             if avg_latency < 1.0:
-                st.success("✅ **Real-time capable**: Latency < 1ms. This model can run on a microcontroleur (ESP32) or high-speed robotic control loop.")
+                st.success("**Real-time capable**: Latency < 1ms. This model can run on a microcontroleur (ESP32) or high-speed robotic control loop.")
             elif avg_latency < 10.0:
-                st.warning("⚠️ **Standard Edge**: Latency < 10ms. Suitable for Raspberry Pi, smartphones, and standard IoT devices.")
+                st.warning("**Standard Edge**: Latency < 10ms. Suitable for Raspberry Pi, smartphones, and standard IoT devices.")
             else:
-                st.error("❌ **Too slow for Edge**: Latency > 10ms. Needs optimization (ONNX export, INT8 Quantization) for real-time applications.")
+                st.error("**Too slow for Edge**: Latency > 10ms. Needs optimization (ONNX export, INT8 Quantization) for real-time applications.")
                 
             
             fig, ax = plt.subplots(figsize=(10, 3))
