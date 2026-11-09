@@ -17,19 +17,12 @@ The project is built on a strict separation of concerns:
 The first agent, **Slytherin v1.0**, masters the game of Snake (10x10). It uses a compact `[64, 64]` neural network, proving that lightweight models can achieve high performance without heavy deep learning frameworks.
 
 
-## 📊 Benchmarks (v1.0)
 
-We evaluated the agent over 100 episodes and measured its inference speed.
-
-| Metric | Value |
-| :--- | :--- |
-| **Algorithm** | PPO (Proximal Policy Optimization) |
-| **Architecture** | MLP `[64, 64]` (~5,000 params) |
-| **Average Score** | **14.42** (Max: 31) |
-| **Inference Latency** | **0.820 ms** (Average) |
-| **Worst-Case (p99)** | **2.400 ms** |
-| **Throughput** | **1,215 FPS** (on CPU) |
-| **Model Size** | ~150 KB (PyTorch) |
+## 📊 Benchmarks (v1.1)
+| Version | Observation Space | Avg Reward | Max Reward | Latency | Params |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **v1.0** | 10 features (Basic) | 141.67 | 318.80 | 0.82 ms | 10,053 |
+| **v1.1** | 13 features (+ BFS) | **266.91** | **519.60** | ~0.90 ms | 10,053 |
 
 
 ## Installation & Quick Start

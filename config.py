@@ -5,6 +5,6 @@ CONFIG_EDGE = {
     "learning_rate": 3e-4,
     "gamma": 0.95,
     "ent_coef": 0.01,
-    "total_timesteps": 200_000,
+    "total_timesteps": 150_000,
     "seed": 42,
 }
