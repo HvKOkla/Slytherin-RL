@@ -4,33 +4,43 @@ import matplotlib.pyplot as plt
 import time
 import torch
 from stable_baselines3 import PPO
-from games.snake.logic import SnakeLogic
+from engine.agent import GenericEnv
+from games.snake.core.logic import SnakeLogic
+from games.snake.envs import get_obs_function
 
 st.title("⚡ Edge AI Inference Speed")
 st.markdown("Measure how fast the agent can make a decision. Crucial for robotics.")
 
-model_name = st.text_input("Model Name (without .zip)", "Slytherin_v1")
+model_name = st.text_input("Model Path (without .zip)", "releases/v1_1/Slytherin_v1_1")
+obs_version = st.text_input("Observation Version", "v1_1")
 n_bench_steps = st.slider("Number of Inference Steps", min_value=100, max_value=5000, value=1000, step=100)
 
 if st.button("⏱️ Measure Inference Speed", use_container_width=True):
     try:
         model = PPO.load(model_name)
         game = SnakeLogic(10)
-        game.reset()
+        env = GenericEnv(game, obs_fn=get_obs_function(obs_version))
         
-        dummy_obs = game.get_observation()
+        obs, _ = env.reset()
+        
+        # Warmup (pour réveiller le CPU)
         for _ in range(100):
-            model.predict(dummy_obs, deterministic=True)
+            model.predict(obs, deterministic=True)
             
-        obs = game.get_observation()
         times = []
-        
         start_total = time.perf_counter()
+        
         for _ in range(n_bench_steps):
             t0 = time.perf_counter()
-            model.predict(obs, deterministic=True)
+            action, _ = model.predict(obs, deterministic=True)
             t1 = time.perf_counter()
             times.append((t1 - t0) * 1000) 
+            
+            # On fait avancer le jeu pour que l'obs change (plus réaliste)
+            obs, _, terminated, truncated, _ = env.step(action)
+            if terminated or truncated:
+                obs, _ = env.reset()
+                
         end_total = time.perf_counter()
         
         total_time = end_total - start_total
