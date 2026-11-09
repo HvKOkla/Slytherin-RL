@@ -6,19 +6,17 @@ import torch
 from stable_baselines3 import PPO
 from games.snake.logic import SnakeLogic
 
-st.set_page_config(page_title="Edge Speed", page_icon="⚡", layout="wide")
-st.title("Edge AI Inference Speed")
+st.title("⚡ Edge AI Inference Speed")
 st.markdown("Measure how fast the agent can make a decision. Crucial for robotics.")
 
 model_name = st.text_input("Model Name (without .zip)", "Slytherin_v1")
-n_bench_steps = st.slider("Number of Inference Steps", 100, 5000, 1000)
+n_bench_steps = st.slider("Number of Inference Steps", min_value=100, max_value=5000, value=1000, step=100)
 
-if st.button("Measure Inference Speed", use_container_width=True):
+if st.button("⏱️ Measure Inference Speed", use_container_width=True):
     try:
         model = PPO.load(model_name)
         game = SnakeLogic(10)
         game.reset()
-        
         
         dummy_obs = game.get_observation()
         for _ in range(100):
@@ -32,7 +30,7 @@ if st.button("Measure Inference Speed", use_container_width=True):
             t0 = time.perf_counter()
             model.predict(obs, deterministic=True)
             t1 = time.perf_counter()
-            times.append((t1 - t0) * 1000) # En ms
+            times.append((t1 - t0) * 1000) 
         end_total = time.perf_counter()
         
         total_time = end_total - start_total
