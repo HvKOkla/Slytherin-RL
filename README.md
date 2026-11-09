@@ -1,5 +1,8 @@
-
 # 🐍 Slytherin-RL v1.0
+
+![Tests](https://img.shields.io/badge/tests-5%20passed-brightgreen)
+![Python](https://img.shields.io/badge/python-3.12-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red)
 
 > A lightweight, modular Reinforcement Learning framework designed for Edge AI. 
 
