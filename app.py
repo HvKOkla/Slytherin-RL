@@ -2,7 +2,12 @@ import streamlit as st
 
 st.set_page_config(page_title="Slytherin-RL | Home", page_icon="🐍", layout="wide")
 
-st.title("🐍 Slytherin-RL | Edge AI Research Dashboard")
+st.set_page_config(page_title="Slytherin-RL | Edge AI", page_icon="🐍", layout="wide")
+st.markdown("""
+<style>
+    .stMetric { background-color: #1E1E1E; padding: 15px; border-radius: 10px; }
+</style>
+""", unsafe_allow_html=True)
 st.markdown("""
 Welcome to the **Slytherin-RL** dashboard. 
 
