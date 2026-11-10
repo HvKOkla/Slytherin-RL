@@ -1,4 +1,6 @@
-
+# ==========================================
+# 🐍 PYTHON & CACHES
+# ==========================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -29,7 +31,7 @@ ENV/
 .python-version
 
 # ==========================================
-# 2. TESTS & BENCHMARKS
+# 🧪 TESTS & BENCHMARKS
 # ==========================================
 .pytest_cache/
 .coverage
@@ -38,12 +40,9 @@ htmlcov/
 .tox/
 .nox/
 .hypothesis/
-benchmarks/results/
-*.csv
-!requirements.csv
 
 # ==========================================
-# 3. STREAMLIT & GRADIO
+# 📊 STREAMLIT & GRADIO
 # ==========================================
 .streamlit/secrets.toml
 .gradio/
@@ -51,14 +50,14 @@ gradio_cached_examples/
 flagged/
 
 # ==========================================
-# 4. RUST (Pour le futur dossier runtime/)
+# 🦀 RUST (Dossier runtime/)
 # ==========================================
 runtime/target/
 **/*.rs.bk
 Cargo.lock
 
 # ==========================================
-# 5. SYSTEMVERILOG / HARDWARE (Ton dossier hardware/)
+# ⚡ SYSTEMVERILOG / HARDWARE (Dossier hardware/)
 # ==========================================
 # Fichiers de simulation
 *.vcd
@@ -71,24 +70,38 @@ sim.out
 
 # Dossiers générés par Verilator
 obj_dir/
-*.cpp
-*.h
-!hardware/rtl/*.sv
-!hardware/tb/*.sv
+
+# ==========================================
+# 🧠 IA / MODELES / DATASETS (Lourds)
+# ==========================================
+# On ignore les poids et fichiers binaires (à mettre dans GitHub Releases)
+*.onnx
+*.pt
+*.pth
+*.pkl
 models/*.zip
-models/*.onnx
-models/*.pt
-models/*.pth
-models/*.pkl
+releases/*.zip
+
+# ==========================================
+# 🪟 SYSTEME (WINDOWS & MAC)
+# ==========================================
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
 *.lnk
+
+# ==========================================
+# 💻 IDE / EDITEURS
+# ==========================================
 .vscode/
 .idea/
 *.swp
 *.swo
+
+# ==========================================
+# 🤖 OUTILS IA (Tes dossiers .agents / .claude)
+# ==========================================
 .agents/
 .claude/
