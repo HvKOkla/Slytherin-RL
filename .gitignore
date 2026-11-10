@@ -1,6 +1,94 @@
-venv/
+
 __pycache__/
-*.pyc
-*.zip
-models/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environnements virtuels
+venv/
+env/
+ENV/
+.python-version
+
+# ==========================================
+# 2. TESTS & BENCHMARKS
+# ==========================================
 .pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+benchmarks/results/
+*.csv
+!requirements.csv
+
+# ==========================================
+# 3. STREAMLIT & GRADIO
+# ==========================================
+.streamlit/secrets.toml
+.gradio/
+gradio_cached_examples/
+flagged/
+
+# ==========================================
+# 4. RUST (Pour le futur dossier runtime/)
+# ==========================================
+runtime/target/
+**/*.rs.bk
+Cargo.lock
+
+# ==========================================
+# 5. SYSTEMVERILOG / HARDWARE (Ton dossier hardware/)
+# ==========================================
+# Fichiers de simulation
+*.vcd
+*.fst
+*.out
+sim.out
+*.lxt
+*.lxt2
+*.ghw
+
+# Dossiers générés par Verilator
+obj_dir/
+*.cpp
+*.h
+!hardware/rtl/*.sv
+!hardware/tb/*.sv
+models/*.zip
+models/*.onnx
+models/*.pt
+models/*.pth
+models/*.pkl
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+.vscode/
+.idea/
+*.swp
+*.swo
+.agents/
+.claude/
